@@ -1,0 +1,149 @@
+/* ===== Базовые анимации ===== */
+
+/* Плавное появление (Fade In) */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+/* Плавное исчезновение (Fade Out) */
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+.fade-out {
+    animation: fadeOut 0.5s ease-in-out forwards;
+}
+
+/* Появление с движением снизу (Fade In Up) */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* ===== Анимации кнопок ===== */
+
+/* Эффект нажатия */
+.button-press {
+    transition: transform 0.1s ease;
+}
+
+.button-press:active {
+    transform: scale(0.95);
+}
+
+/* Свечение при наведении */
+.button-glow {
+    transition: box-shadow 0.3s ease;
+}
+
+.button-glow:hover {
+    box-shadow: 0 0 15px rgba(210, 105, 30, 0.7);
+}
+
+/* ===== Анимации карточек ===== */
+
+/* Парящий эффект при наведении */
+.card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Последовательное появление карточек (для меню) */
+.menu-item {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.menu-item:nth-child(1) { animation-delay: 0.1s; }
+.menu-item:nth-child(2) { animation-delay: 0.2s; }
+.menu-item:nth-child(3) { animation-delay: 0.3s; }
+.menu-item:nth-child(4) { animation-delay: 0.4s; }
+
+/* ===== Анимации корзины ===== */
+
+/* Удаление элемента сдвигом влево */
+@keyframes slideOutLeft {
+    to {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+}
+
+.cart-item-remove {
+    animation: slideOutLeft 0.4s ease forwards;
+}
+
+/* ===== Переходы между страницами ===== */
+
+/* Для SPA (если используется Vue/React) */
+.page-enter-active, .page-leave-active {
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.page-enter, .page-leave-to {
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+/* ===== Анимации загрузки ===== */
+
+/* Скелетон-загрузка (для заглушек) */
+@keyframes loadingPulse {
+    0% { background-color: #f0f0f0; }
+    50% { background-color: #e0e0e0; }
+    100% { background-color: #f0f0f0; }
+}
+
+.skeleton-loading {
+    animation: loadingPulse 1.5s infinite ease-in-out;
+    border-radius: 4px;
+}
+
+/* ===== Микроанимации ===== */
+
+/* Вращение (для лоадера) */
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.spinner {
+    animation: spin 1s linear infinite;
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    border-top-color: #d2691e;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+}
+
+/* Подтверждение (галочка) */
+@keyframes checkmark {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.checkmark {
+    animation: checkmark 0.5s ease;
+    color: #4CAF50;
+}
