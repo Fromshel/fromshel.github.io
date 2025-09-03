@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина — OnTaste</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <style>
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            text-align: center;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .cart-container {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .cart-item {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+
+        .cart-item:nth-child(1) { animation-delay: 0.1s; }
+        .cart-item:nth-child(2) { animation-delay: 0.2s; }
+        .cart-item:nth-child(3) { animation-delay: 0.3s; }
+        .cart-item:nth-child(4) { animation-delay: 0.4s; }
+
+        .cart-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .cart-item-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            margin-bottom: 15px;
+        }
+
+        .cart-item-info {
+            flex-grow: 1;
+        }
+
+        .cart-item-info h3 {
+            font-size: 1.2rem;
+            color: var(--dark-color);
+            margin-bottom: 10px;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: none;
+            background-color: #f0e6d9;
+            color: var(--dark-color);
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quantity-btn:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .quantity {
+            font-weight: bold;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .item-price {
+            font-weight: bold;
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+        }
+
+        .remove-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--error-color);
+            transition: transform 0.3s;
+        }
+
+        .remove-btn:hover {
+            transform: scale(1.2);
+        }
+
+        .empty-cart {
+            font-size: 1.1rem;
+            color: #666;
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .total {
+            font-size: 1.5rem;
+            margin: 30px 0;
+            color: var(--dark-color);
+            text-align: center;
+        }
+
+        .order-form {
+            text-align: center;
+        }
+
+        .time-picker {
+            padding: 12px;
+            font-size: 1rem;
+            margin-top: 10px;
+            border-radius: var(--border-radius);
+            border: 1px solid #ddd;
+            background-color: #f4f4f4;
+            width: 250px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .time-picker:hover {
+            background-color: #e8e8e8;
+        }
+
+        .time-picker:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(210, 105, 30, 0.2);
+        }
+
+        .nav-buttons {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .nav-buttons .btn {
+            background-color: #f0e6d9;
+            color: var(--dark-color);
+        }
+
+        .nav-buttons .btn:hover {
+            background-color: #e0d6c9;
+        }
+
+        .btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        @media (max-width: 768px) {
+            .cart-item {
+                width: 100%;
+                max-width: 400px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .time-picker {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="logo">
+                <img src="images/logo.png" alt="OnTaste">
+            </a>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Главная</a>
+                <a href="menu.html" class="nav-link">Меню</a>
+                <a href="cart.html" class="nav-link cart-link">
+                    Корзина
+                    <span class="cart-count" id="cartCount"></span>
+                </a>
+                <a href="account.html" class="nav-link">Кабинет</a>
+            </nav>
+        </header>
+
+        <h1>Ваша корзина</h1>
+
+        <div class="cart-container">
+            <!-- Динамически заполняется через JavaScript -->
+        </div>
+
+        <p class="total"><strong>Итого: 0 ₽</strong></p>
+
+        <form class="order-form" id="orderForm">
+            <label for="pickup">Выберите время самовывоза:</label><br>
+            <input class="time-picker" type="time" id="pickup" min="08:00" max="20:00" required><br><br>
+            <button type="submit" id="orderButton" class="btn button-glow">Оформить заказ</button>
+        </form>
+
+        <div class="nav-buttons">
+            <a href="menu.html" class="btn">Вернуться в меню</a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        document.getElementById('orderForm').addEventListener('submit', handleOrder);
+    </script>
+</body>
+</html>
