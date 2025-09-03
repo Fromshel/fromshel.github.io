@@ -16,11 +16,11 @@ let orders = [];
 // Данные меню с множественными категориями
 const menuItems = [
     { id: '1', name: 'Капучино', price: 200, image: 'images/cappuccino.jpg', categories: ['all', 'coffee'] },
-    { id: '2', name: 'Латте', price: 220, image: 'images/latte.png', categories: ['all', 'coffee'] },
+    { id: '2', name: 'Латте', price: 220, image: 'images/latte.jpg', categories: ['all', 'coffee'] },
     { id: '3', name: 'Сэндвич', price: 180, image: 'images/sandwich.jpg', categories: ['all', 'food'] },
-    { id: '4', name: 'Салат', price: 160, image: 'images/salad.png', categories: ['all', 'food'] },
+    { id: '4', name: 'Салат', price: 160, image: 'images/salad.jpg', categories: ['all', 'food'] },
     { id: '5', name: 'Чизкейк', price: 200, image: 'images/cheesecake.jpg', categories: ['all', 'desserts'] },
-    { id: '6', name: 'Брауни', price: 180, image: 'images/brownie.png', categories: ['all', 'desserts'] }
+    { id: '6', name: 'Брауни', price: 180, image: 'images/brownie.jpg', categories: ['all', 'desserts'] }
 ];
 
 try {
@@ -509,4 +509,5 @@ document.addEventListener('DOMContentLoaded', function() {
             this.classList.remove('button-press');
         });
     });
+
 });
